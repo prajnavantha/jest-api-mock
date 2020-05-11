@@ -1,7 +1,7 @@
 import Promise from 'promise-polyfill';
 
 let urlMaps;
-let handlerParams;
+let genericParams;
 
 /**
  * 
@@ -15,12 +15,9 @@ const urlMapper = (configs) => {
     urlMaps = configs;
 }
 
-// const apiHandler = () => ({
-//     get:(url,params) => jest.fn(urlHandler(url,'get',params)),
-//     post:(url,params) =>  jest.fn(urlHandler(url,'post',params)),
-//     put:(url,params) =>  jest.fn(urlHandler(url,'put',params)),
-//     delete:(url,params) =>  jest.fn(urlHandler(url,'delete',params)),
-// })
+const mockApiService = (mockPath) => {
+    jest.doMock(mockPath, () => apiHandler());
+}
 
 const apiHandler = () => ({
     get: (url, params) => urlHandler(url, 'get', params),
@@ -29,9 +26,8 @@ const apiHandler = () => ({
     delete: (url, params) => urlHandler(url, 'delete', params),
 })
 
-
 const updateParams = (params) => {
-    handlerParams = params
+    genericParams = params
 }
 
 const urlHandler = (url, method, apiParams) => {
@@ -44,7 +40,7 @@ const urlHandler = (url, method, apiParams) => {
 
     if (urlObj[method] && typeof(urlObj[method]) === 'function') {
         mockData = urlObj[method](url, {
-            testParams: handlerParams,
+            genericParams,
             apiParams
         });
 
@@ -55,11 +51,8 @@ const urlHandler = (url, method, apiParams) => {
 
 };
 
-window.jestApiMock = {
+global.jestApiMock = {
     urlMapper,
     updateParams,
-}
-
-export {
-    apiHandler
+    mockApiService,
 }
