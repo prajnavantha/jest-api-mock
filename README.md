@@ -39,7 +39,7 @@ Add the following lines to your setupFile
 
 ```js
 //setupJest.js or similar file
-import "jest-mock-api";
+import "jest-api-mock";
 ```
 
 With this, you should have access to a global variable jestApiMock. Now you need to tell jestApiMock, what path needs to be mocked. You would want to give abolute path of your service file which you are using to do api call.

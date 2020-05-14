@@ -1,5 +1,8 @@
-import Promise from "promise-polyfill";
-
+if (!Promise) {
+  Promise = require("promise-polyfill");
+} else if (!Promise.finally) {
+  Promise.finally = require("promise-polyfill").finally;
+}
 let urlMaps;
 let genericParams;
 let isMockSet = false;
