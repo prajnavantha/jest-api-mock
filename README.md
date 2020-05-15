@@ -4,6 +4,8 @@
 
 Jest api mock is an easier way to configure mock api's for your api services. It's easy to setup and you don't need any complex setup. It leverages Jest's to provide a central config file for mocking all your api calls. You could see its magic especially when you have a complex heirarchy of api calls in your application and you wan't to configure them based on various parameters.
 
+You could refer to the blogPost - [mocking-apis-with-jest](https://medium.com/@prajnavantha001/mocking-multiple-apis-with-jest-54524561793c) and [jest-api-mock](https://medium.com/@prajnavantha001/mocking-multiple-apis-with-jest-using-jest-api-mock-part-2-5241f3abb64c) to know more on how this package works.
+
 ## Contents
 
 - [Installation and Setup](#installation-and-setup)
@@ -124,6 +126,8 @@ describe("This is a mock test suite", () => {
   });
 });
 ```
+
+Please refer to the [example](#example) section to see how to access the params in the urlHandler.
 
 ## Paramaters passed to url handler
 

@@ -42,7 +42,7 @@ const urlMapper = configs => {
           );
         } else {
           methods.every(method => {
-            if (!config.method) {
+            if (!config[method]) {
               errorHandler(
                 method + " method not defined for url " + config.url,
                 ERROR_TYPES.WARNING
