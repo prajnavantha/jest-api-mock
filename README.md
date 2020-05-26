@@ -9,8 +9,10 @@ You could refer to the blogPost - [mocking-apis-with-jest](https://medium.com/@p
 ## Contents
 
 - [Installation and Setup](#installation-and-setup)
-- [Sample of the complete setup](#sample)
+- [Sample of the complete setup](#sample-of-the-complete-setup)
 - [Available api's](#available-apis)
+- [Accessing paramaters in urlHandler](#accessing-paramaters-in-urlHandler)
+- [Known issues](#known-issues)
 
 ## Installation and Setup
 
@@ -104,7 +106,9 @@ jestApiMock.urlMapper([
 
 ## Available api's
 
-`jestApiMock.updateParams()`[Optional] - Add params which will be sent to your urlhandler.
+- `jestApiMock.updateParams()`[Optional] - Add params which will be sent to your urlhandler.
+
+### Example
 
 This is especially useful to send custom mock response based on your test suite. You could either use it at the top of your file or for each test suite.
 
@@ -129,18 +133,18 @@ describe("This is a mock test suite", () => {
 
 Please refer to the [example](#example) section to see how to access the params in the urlHandler.
 
-## Paramaters passed to url handler
+## Accessing paramaters in urlHandler
 
 The parameters recieved by urlHandler functions are as follows
 
-```JSON
+```js
 {
- genericParams, //Params passed to jestApiMock by calling `jestApiMock.updateParams()` api
- apiParams //These are params sent during api call, could be especially useful if you want to customize the response based on params sent during POST,DELETE and PUT calls.
+  genericParams, //Params passed to jestApiMock by calling `jestApiMock.updateParams()` api
+  apiParams, //These are params sent during api call, could be especially useful if you want to customize the response based on params sent during POST,DELETE and PUT calls.
 }
 ```
 
-### example
+### Example
 
 ```js
 //userHandler.js
@@ -159,3 +163,19 @@ const userHandler = (url,data) => {
 
 export default apiHandler;
 ```
+
+## Known issues
+
+- doing `jest.resetModules()` resets all currently available modules. Since we use jests `doMocks` to mock api's, the mock gets reset and will not run for that test file.
+- Presently we can only mock for api services designed in axios style, like in the format below
+
+```json
+{
+  get,
+  post,
+  delete,
+  put
+}
+```
+
+We would like to extend this further to support anytype of api service
